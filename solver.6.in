@@ -1,0 +1,38 @@
+.TH %TITLE_SOLVER% 6 "2023-08-25" "Version 0.1"
+.SH NAME
+%SOLVER% \- Program for solving  Sudoku puzzles
+.SH SYNOPSIS
+.B %SOLVER%
+.RB [ \-v ]
+.SH DESCRIPTION
+.B %SOLVER%
+is a program to solve Sudoku puzzles.
+It reads the puzzel from STDIN and writes the solution - if any - to STDOUT.
+Errors are printed to STDERR.
+.SH OPTIONS
+.TP
+.B \-v
+Be verbose. Print intermediate results of the solving algorithm.
+.SH INPUT
+81 characters - that is a 9x9 grid - are read from STDIN.
+Characters between '1' and '9' in the stream are treated as
+.I fixed
+cell numbers. All other characters represent
+.I
+blank
+cells, for which the solver will find the correct numbers.
+.SH OUTPUT
+If a solution can be found, the output is written to STDOUT as follows.
+.PP
+First the number of iterations are printed
+i=num
+followed by new line where "num" is an unsigned integer.
+.PP
+Then the solution is printed as a 9x9 grid.
+Each number is printed as an ASCII character followed by space.
+After each 9th character new line is printed instead of space.
+.SH EXIT STATUS
+.B %SOLVER%
+exits with a status of zero if a solution was found.
+.SH AUTHOR
+Rainer Holzner <rholzner@web.de>

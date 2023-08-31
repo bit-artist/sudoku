@@ -1,0 +1,50 @@
+.TH %TITLE_EDITOR% 6 "2023-08-25"
+.SH NAME
+%EDITOR% \- Visual editor for Sudoku puzzles
+.SH SYNOPSIS
+.B %EDITOR%r
+.RB [ file ]
+.SH DESCRIPTION
+.B %EDITOR%
+is a visual editor that
+allows the user to easily enter, solve, save and restore Sudoku puzzles.
+It works as a front-end to its companion program
+.B %EDITOR%(6).
+.SH KEYS
+.TP
+.B [hjkl], arrow keys
+Move cursor, select cell
+.TP
+.B 1-9
+Place number under cursor
+.TP
+.B DEL
+Delete selected cell
+.TP
+.B c
+Clear all
+.TP
+.B r
+Restore a Sudoku from file
+.TP
+.B w
+Write Sudoku to file
+.TP
+.B s
+Solve
+.TP
+.B ?
+Show instructions
+.TP
+.B q
+Quit editor
+.SH FILES
+.TP
+.I %WORKDIR%
+The default directory where Sudoku puzzles are stored.
+.SH EXIT STATUS
+.B %EDITOR%
+exits with a status of 0 after a normal quit.
+If the program fails to initialize, the exit status is 1.
+.SH AUTHOR
+Rainer Holzner <rholzner@web.de>
