@@ -2,7 +2,7 @@
 .SH NAME
 %EDITOR% \- Visual editor for Sudoku puzzles
 .SH SYNOPSIS
-.B %EDITOR%r
+.B %EDITOR%
 .RB [ file ]
 .SH DESCRIPTION
 .B %EDITOR%
