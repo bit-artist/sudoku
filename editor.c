@@ -36,7 +36,7 @@
 #define FRAME_POS_X 0
 #define FRAME_POS_Y 1
 
-static char *argv0;
+static const char *argv0;
 static const char *msg_cdir = "Current dir:";
 static const char *msg_cancel = "'Ctrl-C' or leave empty to cancel.";
 static char message[1024];

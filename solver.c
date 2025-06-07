@@ -24,6 +24,8 @@ static Cell *rows[9][9];
 static Cell *cols[9][9];
 static Cell *boxes[9][9];
 
+static const char *argv0;
+
 static unsigned cell_to_box(unsigned cell_no)
 {
 	unsigned box_y, box_x;
@@ -61,13 +63,17 @@ static void init(void)
 	}
 }
 
-/* Reads 81 digits [1..9] from stdin initializing the cells.
- * Ignores everything else. Returns 0 on success, else -1.
+/* Reads at most 81 characters from stdin.
+ * Digits between [1..9] represent fixed cell values.
+ * CR and LF are ignored.
+ * All other characters represent empty cells.
+ * 
+ * Returns 0 on success, else -1.
  */
 static int read_puzzle(void)
 {
 	size_t i = 0;
-	char c;
+	int c;
 	Cell *cl = CL(0);
 
 	while (i < 81 && (c = getchar()) != EOF)
@@ -77,7 +83,11 @@ static int read_puzzle(void)
 			cl->value = (unsigned)(c - '0');
 			cl->ct = CT_FIXED;
 		}
-		/* else: skip all other characters */
+		else if (c == '\n' || c == '\r')
+		{
+			continue;
+		}
+		/* else: the character represents an empty cell */
 		i++;
 		cl++;
 	}
@@ -231,6 +241,7 @@ int main(int argc, char *argv[])
 	int i = 0;
 	int verbose = 0;
 
+	argv0 = argv[0];
 	if (argc == 2 && argv[1][0] == '-' && argv[1][1] == 'v')
 	{
 		verbose = 1;
@@ -239,9 +250,7 @@ int main(int argc, char *argv[])
 	init();
 	if (read_puzzle() < 0)
 	{
-		fprintf(stderr,
-				"%s: Error: Cannot read puzzle data!\n",
-				SOLVER);
+		fprintf(stderr, "%s: Error: Cannot read puzzle data!\n", argv0);
 		return 1;
 	}
 
@@ -249,9 +258,7 @@ int main(int argc, char *argv[])
 	cell_no = check_all();
 	if (cell_no != 1)
 	{
-		fprintf(stderr,
-			   	"%s: Error: The puzzle is invalid!\n",
-				SOLVER);
+		fprintf(stderr, "%s: Error: The puzzle is invalid!\n", argv0);
 		return 2;
 	}
 
@@ -280,12 +287,9 @@ int main(int argc, char *argv[])
 	}
 	while (cell_no >= 0 && cell_no < 81);
 
-	cell_no = check_all();
-	if (cell_no != 1)
+	if (cell_no != 81 || check_all() == 0)
 	{
-		fprintf(stderr,
-			   	"%s: Error: No solution found!\n",
-				SOLVER);
+		fprintf(stderr, "%s: Error: No solution found!\n", argv0);
 		return 3;
 	}
 
